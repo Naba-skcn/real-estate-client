@@ -4,6 +4,7 @@ import { AuthContext } from './providers/AuthProvider';
 import { getAuth, updateProfile } from 'firebase/auth'; 
 import { FaEye, FaRegEyeSlash } from "react-icons/fa";
 import swal from 'sweetalert';
+import { Helmet } from 'react-helmet';
 
 const Register = () => {
     const { createUser, logout } = useContext(AuthContext);
@@ -72,6 +73,7 @@ const Register = () => {
 
                 `}
             </style>
+            <Helmet><title>EstateNest | Sign up</title></Helmet>
             <div className="hero min-h-screen bg-center bg-cover bg-[url('https://images.unsplash.com/photo-1695278255455-9afc87008775?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
                 <div className="hero-content flex-col mt-20 ">
                     <div className="text-center">

@@ -4,6 +4,7 @@ import { AuthContext } from './providers/AuthProvider';
 import { AiFillGoogleCircle, AiFillGithub } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
     const { signInUser, signInWithGoogle, signInWithGithub } = useContext(AuthContext);
@@ -71,6 +72,7 @@ const Login = () => {
                 }
                 `}
             </style>
+            <Helmet><title>EstateNest | Sign in</title></Helmet>
             <div className="hero min-h-screen bg-center bg-cover bg-[url('https://images.unsplash.com/photo-1695278255455-9afc87008775?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
                 <ToastContainer />
                 <div className="hero-content mt-20 flex-col">
