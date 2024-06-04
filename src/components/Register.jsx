@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { AuthContext } from './providers/AuthProvider';
 import { getAuth, updateProfile } from 'firebase/auth'; 
 import { FaEye, FaRegEyeSlash } from "react-icons/fa";
@@ -11,6 +11,7 @@ const Register = () => {
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const formRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleSignOut = () => {
         logout()
@@ -43,6 +44,7 @@ const Register = () => {
             swal("Registration successful!");
             handleSignOut();
             formRef.current.reset(); // Reset the form after successful registration
+            navigate('/login');
         } catch (error) {
             console.error(error);
             setError(error.message);

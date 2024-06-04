@@ -26,7 +26,6 @@ const Navbar = () => {
             <li><NavLink to="/"><span className='text-[#d2ad5f]'>Home</span></NavLink></li>
             {user && <li><NavLink to="/add">All Properties</NavLink></li>}
             {user && <li><NavLink to="/myProperties">Dashboard</NavLink></li>}
-            {user && <li><NavLink to="/requests">Property Requests</NavLink></li>}
         </>
     );
 
