@@ -24,7 +24,7 @@ const Navbar = () => {
     const navLinks = (
         <>
             <li><NavLink to="/"><span className='text-[#d2ad5f]'>Home</span></NavLink></li>
-            {user && <li><NavLink to="/add">All Properties</NavLink></li>}
+            {user && <li><NavLink to="/all">All Properties</NavLink></li>}
             {user && <li><NavLink to="/myProperties">Dashboard</NavLink></li>}
         </>
     );

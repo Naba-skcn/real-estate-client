@@ -17,6 +17,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import AllProperties from './components/AllProperties.jsx';
+import PrivateRoute from './components/routes/PrivateRoute.jsx';
+import ViewDetails from './components/ViewDetails.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +38,16 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>
       },
+      {
+       path: "/all",
+       element: <PrivateRoute><AllProperties></AllProperties></PrivateRoute>
+      },
+      {
+        path: "/property/:id",
+        element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
+        loader: ({params}) => fetch(`http://localhost:5000/property/${params.id}`)
+      },
+      
     
     ]
   },
