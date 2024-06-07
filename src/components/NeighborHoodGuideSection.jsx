@@ -48,8 +48,13 @@ const NeighborhoodGuidesSection = () => {
                         </div>
                     </div>
                 </div>
-                <p className="text-center text-lg text-gray-600 mt-8">Can't find your ideal neighborhood? Let us help you discover the perfect place to call home. Contact our expert agents for personalized recommendations.</p>
-                <Link to="/contact" className="btn bg-black block  text-[#d2ad5f] py-2 text-2xl mx-auto mt-6">Contact Us</Link>
+                <div className="max-w-2xl mx-auto text-center py-12 px-4 sm:px-6 lg:px-8">
+      <p className="text-lg text-gray-600 mt-8">Can't find your ideal neighborhood? Let us help you discover the perfect place to call home. Contact our expert agents for personalized recommendations.
+      </p>
+      <Link to="/contact" className="btn bg-black text-[#d2ad5f] py-2 px-8 text-2xl mx-auto mt-6 inline-block rounded-md shadow-lg transition-transform transform hover:scale-105">
+        Contact Us
+      </Link>
+    </div>
             </div>
         </section>
     );

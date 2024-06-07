@@ -48,9 +48,19 @@ const ViewDetails = () => {
             return;
         }
         try {
-            const response = await axios.post(`http://localhost:5000/wishlist`, {
+            const response = await axios.post(`http://localhost:5000/list`, {
                 userId: user.id,
                 propertyId: id,
+                propertyTitle: property.property_title,
+                propertyImage: property.property_image,
+                propertyDescription: property.description,
+                propertyLocation: property.property_location,
+                priceRange: property.price_range,
+                verificationStatus: property.verification_status,
+                agentName: property.agent_name,
+                agentImage: property.agent_image,
+                userEmail: user.email,
+                userName: user.displayName,
             });
             if (response.status === 200 || response.status === 201) {
                 Swal.fire('Added to wishlist!');

@@ -34,7 +34,7 @@ const Advertisement = () => {
             <div className="grid grid-cols-1 gap-8 font sm:grid-cols-2 lg:grid-cols-2 mt-4">
                 {properties.map(property => (
                     <div key={property._id} className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1">
-                        <img src={property.property_image} alt={property.name} className="w-full h-48 object-cover rounded-t-lg" />
+                        <img src={property.property_image} alt={property.name} className="w-full h-48 object-cover hover:scale-90 rounded-t-lg" />
                         <div className="p-6">
                             <h3 className="text-2xl font-semibold mb-2">{property.name}</h3>
                             <p className="text-gray-700 mb-1"><span className='text-black font-bold'>Location:</span> {property.property_location}</p>
