@@ -55,8 +55,8 @@ const Navbar = () => {
     const navLinks = (
         <>
             <li><NavLink to="/"><span className='text-[#d2ad5f]'>Home</span></NavLink></li>
-            {user && <li><NavLink to="/all">All Properties</NavLink></li>}
-            {user && <li><NavLink to="/dashboard">Dashboard</NavLink></li>}
+            {user && <li><NavLink to="/all"><span className='text-[#d2ad5f]'>All Properties</span></NavLink></li>}
+            {user && <li><NavLink to="/dashboard"><span className='text-[#d2ad5f]'>Dashboard</span></NavLink></li>}
         </>
     );
 

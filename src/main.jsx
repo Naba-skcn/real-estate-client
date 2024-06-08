@@ -27,6 +27,11 @@ import MyProfile from './components/MyProfile.jsx';
 import ManageUsers from './components/ManageUsers.jsx';
 import ManageProperties from './components/ManageProperties.jsx';
 import AddProperty from './AddProperty.jsx';
+import MyAddedProperties from './components/MyAddedProperties.jsx';
+import UpdateProperty from './components/UpdateProperty.jsx';
+import PropertyBought from './components/PropertyBought.jsx';
+import MyReviews from './components/MyReviews.jsx';
+import RequestedProperty from './components/RequestedProperty.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -89,7 +94,32 @@ const router = createBrowserRouter([
         index: true,
         path: "/dashboard/add-property",
         element:<PrivateRoute><AddProperty></AddProperty></PrivateRoute>
-      }
+      },
+      {
+        index: true,
+        path: "/dashboard/my-properties",
+        element:<PrivateRoute><MyAddedProperties></MyAddedProperties></PrivateRoute>
+      },
+      {
+        index: true,
+        path: "/dashboard/bought",
+        element:<PrivateRoute><PropertyBought></PropertyBought></PrivateRoute>
+      },
+       {
+        index: true,
+        path: "/dashboard/update-property/:id",
+        element:<PrivateRoute><UpdateProperty></UpdateProperty></PrivateRoute>
+      },
+      {
+        index: true,
+        path: "/dashboard/my-reviews",
+        element:<PrivateRoute><MyReviews></MyReviews></PrivateRoute>
+      },
+      {
+        index: true,
+        path: "/dashboard/requested-properties",
+        element:<PrivateRoute><RequestedProperty></RequestedProperty></PrivateRoute>
+      },
     ]
    },
 ]);

@@ -28,7 +28,7 @@ const MyProfile = () => {
             const data = await response.json();
             return data;
         },
-        enabled: !!authUser?.email // only run the query if authUser is available
+        enabled: !!authUser?.email 
     });
 
     if (isLoading) return <div>Loading...</div>;
@@ -54,7 +54,7 @@ const MyProfile = () => {
           <a href='#' className='relative block'>
             <img
               alt='profile'
-              src={user.image}
+              src={user?.image}
               className='w-32 h-32 rounded-full mx-auto border-4 mt-10 border-[#d2ad5f] '
             />
           </a>
@@ -62,8 +62,8 @@ const MyProfile = () => {
           <p className='p-2 mb-2 z-10 -mt-[15px] text-xs font-semibold bg-black border-2 border-[#d2ad5f] text-[#d2ad5f] rounded-full'>
             {role}
           </p>
-                        <p className="text-white text-xl mb-2 animate__animated animate__fadeInUp"><span className='text-[#d2ad5f] font-semibold'>Name:</span> {user.name}</p>
-                        <p className="text-gray-400 text-lg animate__animated animate__fadeInUp">Email: {user.email}</p>
+                        <p className="text-white text-xl mb-2 animate__animated animate__fadeInUp"><span className='text-[#d2ad5f] font-semibold'>Name:</span> {user?.name}</p>
+                        <p className="text-gray-400 text-lg animate__animated animate__fadeInUp">Email: {user?.email}</p>
                       
                     </div>
                 </div>

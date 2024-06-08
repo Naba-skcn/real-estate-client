@@ -15,7 +15,7 @@ const AddProperty = () => {
         const description = form.description.value;
         const price = form.price.value;
         const propertyImage = form.propertyImage.files[0];
-        const verificationStatus = 'Verified'; 
+        const verificationStatus = 'Pending'; 
         const agentName = user ? user.displayName : '';
         const agentEmail = user ? user.email : '';
         const agentImage = user ? user.photoURL : '';

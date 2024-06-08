@@ -1,5 +1,6 @@
 import { BsFillHouseAddFill } from 'react-icons/bs'
 import { MdHomeWork, MdOutlineManageHistory } from 'react-icons/md'
+import { TbHomeCheck } from "react-icons/tb";
 import MenuItem from './MenuItem'
 
 const AgentMenu = () => {
@@ -8,7 +9,7 @@ const AgentMenu = () => {
       <MenuItem icon={BsFillHouseAddFill} label='Add Property' address='/dashboard/add-property' />
       <MenuItem icon={MdHomeWork} label='My added properties' address='/dashboard/my-properties' />
       <MenuItem
-        icon={MdOutlineManageHistory}
+        icon={TbHomeCheck}
         label='Sold Properties'
         address='/dashboard/sold-properties'
       />

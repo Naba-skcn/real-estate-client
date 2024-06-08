@@ -9,34 +9,44 @@ const MakeOffer = () => {
     const navigate = useNavigate();
     const { user } = UseAuth();
     const { property } = state;
+    const { propertyTitle, propertyLocation, propertyImage, agentName, priceRange, _id: propertyId, userName: buyerName } = property;
+const extractPrices = priceStr => priceStr.match(/\$\d+(?:,\d+)*\s*-\s*\$\d+(?:,\d+)*/)?.[0].split(' - ').map(price => parseInt(price.replace(/\$|,/g, '')));
     const [offerAmount, setOfferAmount] = useState('');
     const [buyingDate, setBuyingDate] = useState('');
 
     const handleOffer = async () => {
-        const [minPrice, maxPrice] = property.priceRange.replace(/\$/g, '').split(' - ').map(Number);
+        const [minPrice, maxPrice] = extractPrices(priceRange);
+        console.log(minPrice, maxPrice)
+        const offerAmountNumber = Number(offerAmount);
 
-        if (offerAmount < minPrice || offerAmount > maxPrice) {
+        if (isNaN(offerAmountNumber)) {
+            Swal.fire('Error', 'Offer amount must be a number.', 'error');
+            return;
+        }
+
+        if (offerAmountNumber < minPrice || offerAmountNumber > maxPrice) {
             Swal.fire('Error', 'Offer amount must be within the price range specified by the agent.', 'error');
             return;
         }
 
         const offer = {
-            propertyId: property._id,
-            propertyTitle: property.propertyTitle,
-            propertyLocation: property.propertyLocation,
-            agentName: property.agentName,
-            offerAmount,
+            propertyId,
+            propertyTitle,
+            propertyLocation,
+            propertyImage,
+            agentName,
+            offerAmount: offerAmountNumber,
             buyerEmail: user.email,
-            buyerName: property.userName,
+            buyerName,
             buyingDate,
-            status: 'pending'
+            status: 'Pending'
         };
-
+    
         try {
             const response = await axios.post('http://localhost:5000/offers', offer);
-            if (response.status === 200) {
+            if (response.status === 201) {
                 Swal.fire('Success', 'Your offer has been submitted.', 'success');
-                navigate('/property-bought');
+                navigate('/dashboard/bought');
             } else {
                 throw new Error('Failed to submit offer');
             }
@@ -48,7 +58,7 @@ const MakeOffer = () => {
 
     return (
         <div className="container font mx-auto p-4">
-            <style>
+             <style>
                 {`
                 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
@@ -60,19 +70,28 @@ const MakeOffer = () => {
             <div className="bg-white shadow-md rounded-lg p-4">
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Property Title</label>
-                    <input type="text" value={property.propertyTitle} readOnly className="w-full px-3 py-2 border rounded" />
+                    <input type="text" value={propertyTitle} readOnly className="w-full px-3 py-2 border rounded" />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Property Location</label>
-                    <input type="text" value={property.propertyLocation} readOnly className="w-full px-3 py-2 border rounded" />
+                    <input type="text" value={propertyLocation} readOnly className="w-full px-3 py-2 border rounded" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Property Image</label>
+                    <input type="url" value={propertyImage} readOnly className="w-full px-3 py-2 border rounded" />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Agent Name</label>
-                    <input type="text" value={property.agentName} readOnly className="w-full px-3 py-2 border rounded" />
+                    <input type="text" value={agentName} readOnly className="w-full px-3 py-2 border rounded" />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Offered Amount</label>
-                    <input type="number" value={offerAmount} onChange={(e) => setOfferAmount(e.target.value)} className="w-full px-3 py-2 border rounded" />
+                    <input
+                        type="number"
+                        value={offerAmount}
+                        onChange={(e) => setOfferAmount(e.target.value)}
+                        className="w-full px-3 py-2 border rounded"
+                    />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Buyer Email</label>
@@ -80,15 +99,21 @@ const MakeOffer = () => {
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Buyer Name</label>
-                    <input type="text" value={property.userName} readOnly className="w-full px-3 py-2 border rounded" />
+                    <input type="text" value={buyerName} readOnly className="w-full px-3 py-2 border rounded" />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Buying Date</label>
-                    <input type="date" value={buyingDate} onChange={(e) => setBuyingDate(e.target.value)} className="w-full px-3 py-2 border rounded" />
+                    <input
+                        type="date"
+                        value={buyingDate}
+                        onChange={(e) => setBuyingDate(e.target.value)}
+                        className="w-full px-3 py-2 border rounded"
+                        required
+                    />
                 </div>
                 <button
                     onClick={handleOffer}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                    className="bg-black  text-[#d2ad5f] px-4 py-2 rounded-lg hover:bg-gray-800 transition duration-300"
                 >
                     Offer
                 </button>

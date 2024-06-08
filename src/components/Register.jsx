@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from './providers/AuthProvider';
 import { getAuth, updateProfile } from 'firebase/auth'; 
 import { FaEye, FaRegEyeSlash } from "react-icons/fa";
@@ -35,16 +35,37 @@ const Register = () => {
             setError('Password must contain at least one uppercase letter, one special character, and be at least 6 characters long.');
             return;
         }
-
+         
         try {
             // Create user in Firebase
             const result = await createUser(email, password);
             // Update user profile 
-            await updateProfile(getAuth().currentUser, { displayName: name, photoURL: photoURL });
-            swal("Registration successful!");
-            handleSignOut();
-            formRef.current.reset(); // Reset the form after successful registration
-            navigate('/login');
+        await updateProfile(getAuth().currentUser, { displayName: name, photoURL: photoURL });
+
+            // data in MongoDB
+            const newUser = {
+                name,
+                email,
+                photoURL,
+            };
+            const response = await fetch('http://localhost:5000/user', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newUser)
+            });
+            console.log(name, photoURL)
+
+            if (response.ok) {
+                swal("Registration successful!");
+                handleSignOut();
+                formRef.current.reset(); 
+                 navigate('/login');
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
         } catch (error) {
             console.error(error);
             setError(error.message);

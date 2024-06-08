@@ -80,11 +80,15 @@ const ViewDetails = () => {
             return;
         }
         try {
+            const currentTime = new Date().toLocaleString();
             const response = await axios.post(`http://localhost:5000/property/${id}/reviews`, {
                 userId: user.id,
                 review: newReview,
+                agentName: property.agent_name,
+                reviewTime: currentTime,
                 userName: user.displayName, 
                 userImage: user.photoURL,
+                userEmail: user.email,
                 propertyTitle: property.property_title, 
             });
             if (response.status === 200 || response.status === 201) {
@@ -155,7 +159,9 @@ const ViewDetails = () => {
             <img src={property && property.property_image} alt={property && property.property_title} className="w-full h-[200px] object-cover" />
         </div>
         <input type='text' readOnly className="input input-bordered w-full my-4" defaultValue={property.property_title}></input>
+        <input type='text' readOnly className="input input-bordered w-full my-4" defaultValue={property.agent_name}></input>
         <input type='url'  readOnly className="input input-bordered w-full my-4" defaultValue={user && user.photoURL} ></input>
+        <input type='text'  readOnly className="input input-bordered w-full my-4" defaultValue={user && user.email} ></input>
         <input
             type="text"
             className="input input-bordered w-full my-4"
@@ -163,6 +169,14 @@ const ViewDetails = () => {
             defaultValue={user && user.displayName}
             readOnly
         />
+     
+     <input
+    type="text"
+    className="input input-bordered w-full my-4"
+    placeholder="Review Time"
+    value={new Date().toLocaleString()}
+    readOnly
+     />
         <textarea
             className="textarea textarea-bordered w-full my-4"
             placeholder="Write your review here"
