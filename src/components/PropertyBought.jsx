@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UseAuth from './routes/UseAuth';
+import { useNavigate } from 'react-router-dom';
 
 const PropertyBought = () => {
     const [offers, setOffers] = useState([]);
     const { user } = UseAuth();
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchOffers = async () => {
@@ -19,9 +21,8 @@ const PropertyBought = () => {
         fetchOffers();
     }, [user]);
 
-    const handlePay = (offerId) => {
-        // Redirect to the payment page
-        window.location.href = `/payment/${offerId}`;
+    const handlePay = (offerId, offerAmount) => {
+        navigate(`/dashboard/payment/${offerId}`, { state: { offerAmount } });
     };
 
     return (
@@ -48,8 +49,8 @@ const PropertyBought = () => {
                                 <p className="text-gray-700 mb-4"><span className="font-semibold">Status:</span> {offer.status}</p>
                                 {offer.status === 'Accepted' && (
                                     <button 
-                                        onClick={() => handlePay(offer._id)} 
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300"
+                                        onClick={() => handlePay(offer._id, offer.offerAmount)} 
+                                        className="bg-black  text-[#d2ad5f] px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-300"
                                     >
                                         Pay
                                     </button>
