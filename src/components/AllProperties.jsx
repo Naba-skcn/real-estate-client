@@ -48,20 +48,20 @@ const AllProperties = () => {
                 <h2 className='text-3xl font-bold uppercase rounded-lg py-4 text-[#d2ad5f]'>All Properties</h2>
             </div>
             
-            <div className='flex gap-6 mb-8'>
+            <div className='flex container mx-auto gap-6 mb-8'>
                 <div className='flex font text-center'>
-                    <div className='bg-black text-[#d2ad5f] p-2 rounded-lg'>Search</div>
+                    <div className='bg-black text-[#d2ad5f] p-0 text-sm lg:text-1xl lg:p-2 rounded-lg'>Search</div>
                     <input 
                         type="text"
                         placeholder="Search by location"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="p-2 border border-gray-300 rounded"
+                        className=" p-0 w-[100px] lg:w-[200px]  lg:p-2 border border-gray-300 rounded"
                     />
                 </div>
 
                 <div className='flex font text-center'>
-                    <div className='bg-black text-[#d2ad5f] p-2 rounded-lg'>Sort By Price</div>
+                    <div className='bg-black text-[#d2ad5f] p-0 text-sm lg:text-1xl lg:p-2  rounded-lg'>Sort By Price</div>
                     <select
                         value={sortOrder}
                         onChange={(e) => setSortOrder(e.target.value)}
