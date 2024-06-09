@@ -86,7 +86,7 @@ const RequestedProperty = () => {
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-200">
                     <thead>
-                        <tr>
+                        <tr className='text-[#d2ad5f] bg-black'>
                             <th className="px-4 py-2 border-b">Property Title</th>
                             <th className="px-4 py-2 border-b">Property Location</th>
                             <th className="px-4 py-2 border-b">Buyer Email</th>
@@ -110,13 +110,13 @@ const RequestedProperty = () => {
                                         <>
                                            <div className='flex gap-2'>
                                            <button
-                                                className="bg-green-500 text-white p-1 rounded mr-2"
+                                                className="bg-black text-[#d2ad5f] p-1 rounded mr-2"
                                                 onClick={() => handleAccept(offer._id, offer.propertyId)}
                                             >
                                                 Accept
                                             </button>
                                             <button
-                                                className="bg-red-500 text-white p-1 rounded"
+                                                className="bg-red-800 text-white p-1 rounded"
                                                 onClick={() => handleReject(offer._id)}
                                             >
                                                 Reject
