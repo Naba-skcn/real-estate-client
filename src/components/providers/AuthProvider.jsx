@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import auth from '../firebase/firebase.config';
 import axios from 'axios';
+import useAxiosPublic from '../hooks/useAxiosPublic';
 
 export const AuthContext = createContext(null);
 
@@ -12,8 +13,9 @@ const gitHubAuthProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [userEmail, setUserEmail] = useState(null); // New state variable to store user's email
+    const [userEmail, setUserEmail] = useState(null);
     const [loading, setLoading] = useState(true);
+    const axiosPublic = useAxiosPublic();
 
     const createUser = (email, password) => {
         setLoading(true);
@@ -74,7 +76,19 @@ const AuthProvider = ({ children }) => {
             setUserEmail(currentUser ? currentUser.email : null);
 
             if (currentUser) {
+                //get token and store client
+                const userInfo = {email : currentUser.email}
+                axiosPublic.post('/jwt', userInfo)
+                .then(res =>{
+                    console.log(res)
+                    if(res.data.token){
+                        localStorage.setItem('access-token',res.data.token)
+                    }
+                })
                 await saveUser(currentUser);
+            }
+            else{
+                localStorage.removeItem('access-token')
             }
 
             setLoading(false);

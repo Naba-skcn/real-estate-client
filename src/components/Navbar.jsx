@@ -9,34 +9,7 @@ import axios from 'axios';
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
     const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark'); 
-    const [isOpen, setIsOpen] = useState(false)
-    // for modal
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const closeModal = () => {
-        setIsModalOpen(false)
-    }
-    const modalHandler = async () => {
-        console.log('I want to be a agent')
-        try {
-            const currentUser = {
-                email: user?.email,
-                role: 'guest',
-                status: 'Requested',
-            }
-            const { data } = await axios.put(`http://localhost:5000/user`, currentUser)
-            console.log(data)
-            if (data.modifiedCount > 0) {
-                toast.success('Success! Please wait for admin confirmation')
-            } else {
-                toast.success('Please!, Wait for admin approval👊')
-            }
-        } catch (err) {
-            console.log(err)
-            toast.error(err.message)
-        } finally {
-            closeModal()
-        }
-    }
+    
     useEffect(() => {
         localStorage.setItem('theme', theme); 
         document.querySelector('html').setAttribute('data-theme', theme);
@@ -135,11 +108,7 @@ const Navbar = () => {
                                 <span><img className='rounded-full size-[30px]' src={user.photoURL} alt="" /></span>
                             </div>
                             <button onClick={handleLogOut} className="btn btn-sm bg-black border-white text-[#d2ad5f] ml-1">Sign out</button>
-                            <button onClick={() => setIsModalOpen(true)} className='btn bg-black btn-sm border-white text-[#d2ad5f] ml-1 '>Host your property</button>
-                            <HostModal 
-                            isOpen={isModalOpen}
-                            closeModal={closeModal}
-                             modalHandler={modalHandler}></HostModal>
+    
                         </>
                     ) : (
                         <>

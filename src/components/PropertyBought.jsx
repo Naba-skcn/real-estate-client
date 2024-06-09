@@ -56,7 +56,7 @@ const PropertyBought = () => {
                                     </button>
                                 )}
                                 {offer.status === 'Bought' && (
-                                    <p className="bg-black text-[#d2ad5f] rounded-lg">Transaction ID: {offer.transactionId}</p>
+                                    <p className="bg-black p-2 text-[#d2ad5f] rounded-lg">Transaction ID: {offer.transactionId}</p>
                                 )}
                             </div>
                         </div>
