@@ -5,12 +5,12 @@ const Advertisement = () => {
     const { data: properties, error, isLoading } = useQuery({
         queryKey: ['properties'], 
         queryFn: async () => {
-            const response = await fetch('http://localhost:5000/property');
+            const response = await fetch('http://localhost:5000/property/advertise');
             if (!response.ok) {
                 throw new Error('Failed to fetch properties');
             }
             const data = await response.json();
-            return data.slice(0, 4);
+            return data.slice(0,6);
         }
     });
 
