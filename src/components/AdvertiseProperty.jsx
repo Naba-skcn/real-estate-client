@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AdvertiseProperty = () => {
     const [properties, setProperties] = useState([]);
@@ -27,10 +28,22 @@ const AdvertiseProperty = () => {
     const handleAdvertise = async (property) => {
         try {
             await axios.post('http://localhost:5000/advertise', property);
-            alert('Property advertised successfully!');
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Property advertised successfully!',
+                timer: 3000,
+                showConfirmButton: false
+            });
         } catch (error) {
             console.error('Error advertising property:', error);
-            alert('Failed to advertise property');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to advertise property',
+                timer: 3000,
+                showConfirmButton: false
+            });
         }
     };
 
