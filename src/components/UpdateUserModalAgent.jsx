@@ -13,9 +13,9 @@ import {
 } from '@headlessui/react'
 import { BsCheckLg } from 'react-icons/bs'
 import { AiOutlineDown } from 'react-icons/ai'
-const roles = ['Admin']
+const roles = ['Agent']
 
-const UpdateUserModal = ({ setIsOpen, isOpen, modalHandler, user }) => {
+const UpdateUserModalAgent = ({ setIsOpen, isOpen, modalHandler, user }) => {
   const [selected, setSelected] = useState(user.role)
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -132,11 +132,11 @@ const UpdateUserModal = ({ setIsOpen, isOpen, modalHandler, user }) => {
   )
 }
 
-UpdateUserModal.propTypes = {
+UpdateUserModalAgent.propTypes = {
   user: PropTypes.object,
   modalHandler: PropTypes.func,
   setIsOpen: PropTypes.func,
   isOpen: PropTypes.bool,
 }
 
-export default UpdateUserModal
+export default UpdateUserModalAgent

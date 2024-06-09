@@ -1,51 +1,82 @@
-import PropTypes from 'prop-types'
-import { useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
-import axios from 'axios'
-import UseAuth from './routes/UseAuth'
-import UpdateUserModal from './UpdateUserModal'
-const UserDataRow = ({ user, refetch }) => {
-  const { user: loggedInUser } = UseAuth()
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import UseAuth from './routes/UseAuth';
+import UpdateUserModal from './UpdateUserModal';
+import UpdateUserModalAgent from './UpdateUserModalAgent';
 
-  const [isOpen, setIsOpen] = useState(false)
+const UserDataRow = ({ user, refetch }) => {
+  const { user: loggedInUser } = UseAuth();
+
+  const [isOpenAdminModal, setIsOpenAdminModal] = useState(false);
+  const [isOpenAgentModal, setIsOpenAgentModal] = useState(false);
+
   const { mutateAsync } = useMutation({
     mutationFn: async role => {
       const { data } = await axios.patch(
         `http://localhost:5000/users/update/${user?.email}`,
         role
-      )
-      return data
+      );
+      return data;
     },
     onSuccess: data => {
-      refetch()
-      console.log(data)
-      toast.success('User role updated successfully!')
-      setIsOpen(false)
+      refetch();
+      toast.success('User role updated successfully!');
+      setIsOpenAdminModal(false);
+      setIsOpenAgentModal(false);
     },
-  })
+  });
 
-  //   modal handler
   const modalHandler = async selected => {
     if (loggedInUser.email === user.email) {
-      toast.error('Action Not Allowed')
-      return setIsOpen(false)
+      toast.error('Action Not Allowed');
+      return setIsOpenAdminModal(false);
     }
 
     const userRole = {
       role: selected,
       status: 'Verified',
-    }
+    };
 
     try {
-      await mutateAsync(userRole)
+      await mutateAsync(userRole);
     } catch (err) {
-      console.log(err)
-      toast.error(err.message)
+      console.log(err);
+      toast.error(err.message);
     }
-  }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/user/${user.email}`);
+      toast.success('User deleted successfully!');
+      refetch();
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to delete user');
+    }
+  };
+
+  const markAsFraud = async () => {
+    try {
+      await axios.patch(`http://localhost:5000/users/update/${user.email}`, {
+        role: 'fraud',
+      });
+      toast.success('User marked as fraud successfully!');
+      // Optionally, you can also remove the agent's properties from the UI
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to mark user as fraud');
+    }
+  };
+
   return (
     <tr>
+      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+        <p className='text-gray-900 whitespace-no-wrap'>{user?.name}</p>
+      </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <p className='text-gray-900 whitespace-no-wrap'>{user?.email}</p>
       </td>
@@ -54,44 +85,82 @@ const UserDataRow = ({ user, refetch }) => {
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         {user?.status ? (
-          <p
-            className={`${
-              user.status === 'Verified' ? 'text-green-500' : 'text-yellow-500'
-            } whitespace-no-wrap`}
-          >
+          <p className={`${user.status === 'Verified' ? 'text-green-500' : 'text-yellow-500'} whitespace-no-wrap`}>
             {user.status}
           </p>
         ) : (
           <p className='text-red-500 whitespace-no-wrap'>Unavailable</p>
         )}
       </td>
-
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <button
-          onClick={() => setIsOpen(true)}
-          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
-        >
-          <span
-            aria-hidden='true'
-            className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
-          ></span>
-          <span className='relative'>Update Role</span>
+        {user.role === 'Agent' && user.status !== 'Fraud' && (
+          <>
+            <button onClick={() => setIsOpenAdminModal(true)} className='button-green  bg-black text white p-2 border-2 border-white rounded-lg text-white'>
+              Admin
+            </button>
+            <UpdateUserModal
+              isOpen={isOpenAdminModal}
+              setIsOpen={setIsOpenAdminModal}
+              modalHandler={modalHandler}
+              user={user}
+            />
+            <button onClick={() => setIsOpenAgentModal(true)} className='button-green  bg-blue-400 text white p-2 border-2 border-white rounded-lg text-white'>
+              Agent
+            </button>
+            <UpdateUserModalAgent
+              isOpen={isOpenAgentModal}
+              setIsOpen={setIsOpenAgentModal}
+              modalHandler={modalHandler}
+              user={user}
+            />
+            <button onClick={markAsFraud} className='button-red  bg-green-400 px-3 text white p-2 border-2 border-white rounded-lg text-white'>
+              Mark as Fraud
+            </button>
+          </>
+        )}
+        {user.status === 'Fraud' && (
+          <p className='text-red-500 whitespace-no-wrap'>Fraud</p>
+        )}
+      </td>
+      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+        {user.role === 'User' && user.status !== 'Fraud' && (
+         <>
+         <button onClick={() => setIsOpenAdminModal(true)} className='button-green bg-black text white p-2 border-2 border-white rounded-lg text-white'>
+           Admin
+         </button>
+         <UpdateUserModal
+           isOpen={isOpenAdminModal}
+           setIsOpen={setIsOpenAdminModal}
+           modalHandler={modalHandler}
+           user={user}
+         />
+         <button onClick={() => setIsOpenAgentModal(true)} className='button-green  bg-blue-400 text white p-2 border-2 border-white rounded-lg text-white'>
+           Agent
+         </button>
+         <UpdateUserModalAgent
+           isOpen={isOpenAgentModal}
+           setIsOpen={setIsOpenAgentModal}
+           modalHandler={modalHandler}
+           user={user}
+         />
+       </>
+        )}
+        {user.status === 'Fraud' && (
+          <p className='text-red-500 whitespace-no-wrap'>Fraud</p>
+        )}
+      </td>
+      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+        <button onClick={deleteUser} className='button-red  bg-red-800 text white p-2 border-2 border-white rounded-lg text-white'>
+          Delete
         </button>
-        {/* Update User Modal */}
-        <UpdateUserModal
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          modalHandler={modalHandler}
-          user={user}
-        />
       </td>
     </tr>
-  )
-}
+  );
+};
 
 UserDataRow.propTypes = {
   user: PropTypes.object,
   refetch: PropTypes.func,
-}
+};
 
-export default UserDataRow
+export default UserDataRow;
