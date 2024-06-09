@@ -115,7 +115,7 @@ const PaymentForm = ({ offerId, offerAmount }) => {
            </div>
            {error && <div className="card-error" role="alert">{error}</div>}
             {transactionId && (
-                <p className="text-green-500 rounded-lg bg-black mt-2">Transaction complete with transactionId: {transactionId}</p>
+                <p className="text-green-500 rounded-lg p-2 bg-black mt-2">Transaction complete with transactionId: {transactionId}</p>
             )}
           <div className='mt-3'>
           <Link to="/dashboard/bought" className="back-button bg-black p-2 text-[#d2ad5f] rounded-lg">
