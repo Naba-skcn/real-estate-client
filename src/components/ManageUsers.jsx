@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import UserDataRow from './UserDataRow';
 
 const ManageUsers = () => {
+
+  const statusReFetch = async () => {
+    // Call refetch directly instead of setting state
+    await refetch();
+  };
   // Fetch users Data
   const { data: users = [], refetch, isLoading, error } = useQuery({
     queryKey: ['users'],
@@ -19,11 +24,20 @@ const ManageUsers = () => {
 
   return (
     <>
-      <div className="container mx-auto px-4 sm:px-8">
+      <div className="container font mx-auto px-4 sm:px-8">
+      <style>
+                {`
+                @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+                .font {
+                    font-family: 'PT Serif', serif;
+                }`}
+            </style>
         <Helmet>
           <title>Manage Users</title>
         </Helmet>
         <div className="py-8">
+        <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
               <table className="min-w-full leading-normal">

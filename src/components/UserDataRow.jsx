@@ -62,10 +62,10 @@ const UserDataRow = ({ user, refetch }) => {
   const markAsFraud = async () => {
     try {
       await axios.patch(`http://localhost:5000/users/update/${user.email}`, {
-        role: 'fraud',
+        role: 'Fraud',
       });
+      refetch()
       toast.success('User marked as fraud successfully!');
-      // Optionally, you can also remove the agent's properties from the UI
     } catch (error) {
       console.error(error);
       toast.error('Failed to mark user as fraud');
