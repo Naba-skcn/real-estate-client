@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const PropertyBought = () => {
     const [offers, setOffers] = useState([]);
     const { user } = UseAuth();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchOffers = async () => {
@@ -22,12 +22,12 @@ const PropertyBought = () => {
     }, [user]);
 
     const handlePay = (offerId, offerAmount) => {
-        navigate(`/dashboard/payment/${offerId}`, { state: { offerAmount } });
+        navigate(`/dashboard/payment/${offerId}`, { state: { offerId, offerAmount } });
     };
 
     return (
         <div className="container mx-auto font py-8">
-              <style>
+            <style>
                 {`
                 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
@@ -35,10 +35,10 @@ const PropertyBought = () => {
                     font-family: 'PT Serif', serif;
                 }`}
             </style>
-            <h2 className="text-3xl font-bold  mb-8">Property Bought</h2>
+            <h2 className="text-3xl font-bold mb-8">Property Bought</h2>
             <div className="flex flex-wrap -mx-4">
                 {offers.map((offer) => (
-                    <div key={offer._id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
+                    <div key={offer._id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4">
                         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
                             <img src={offer.propertyImage} alt={offer.propertyTitle} className="w-full h-48 object-cover" />
                             <div className="p-4">
@@ -50,13 +50,13 @@ const PropertyBought = () => {
                                 {offer.status === 'Accepted' && (
                                     <button 
                                         onClick={() => handlePay(offer._id, offer.offerAmount)} 
-                                        className="bg-black  text-[#d2ad5f] px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-300"
+                                        className="bg-black text-[#d2ad5f] px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-300"
                                     >
                                         Pay
                                     </button>
                                 )}
                                 {offer.status === 'Bought' && (
-                                    <p className="text-green-500 font-semibold">Transaction ID: {offer.transactionId}</p>
+                                    <p className="bg-black text-[#d2ad5f] rounded-lg">Transaction ID: {offer.transactionId}</p>
                                 )}
                             </div>
                         </div>

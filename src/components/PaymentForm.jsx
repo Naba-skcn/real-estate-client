@@ -1,75 +1,129 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-
+import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import '../components/css/PaymentForm.css';
-import { Link } from 'react-router-dom';
+import UseAuth from './routes/UseAuth';
 
-const PaymentForm = ({ offerAmount }) => {
-  const stripe = useStripe();
-  const elements = useElements();
+const PaymentForm = ({ offerId, offerAmount }) => {
+    const [error, setError] = useState('');
+    const [clientSecret, setClientSecret] = useState('');
+    const [transactionId, setTransactionId] = useState('');
+    const stripe = useStripe();
+    const elements = useElements();
+    const { user } = UseAuth();
 
-  const handleSubmit = async (event) => {
-    // Block native form submission.
-    event.preventDefault();
+    useEffect(() => {
+        const createPaymentIntent = async () => {
+            try {
+                const response = await axios.post('http://localhost:5000/create-payment-intent', { amount: offerAmount });
+                setClientSecret(response.data.clientSecret);
+            } catch (error) {
+                console.error('Failed to create payment intent', error);
+            }
+        };
 
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return;
-    }
+        createPaymentIntent();
+    }, [offerAmount]);
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const card = elements.getElement(CardElement);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    if (card == null) {
-      return;
-    }
+        if (!stripe || !elements) {
+            return;
+        }
 
-    // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card,
-    });
+        const card = elements.getElement(CardElement);
 
-    if (error) {
-      console.log('[error]', error);
-    } else {
-      console.log('[PaymentMethod]', paymentMethod);
-    }
-  };
+        if (card == null) {
+            return;
+        }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
-              },
+        const { error: createPaymentMethodError, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card,
+        });
+
+        if (createPaymentMethodError) {
+            setError(createPaymentMethodError.message);
+            console.log('[createPaymentMethodError]', createPaymentMethodError);
+            return;
+        } else {
+            setError('');
+            console.log('[PaymentMethod]', paymentMethod);
+        }
+
+        const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email || 'anonymous',
+                    name: user?.displayName || 'anonymous',
+                },
             },
-            invalid: {
-              color: '#9e2146',
-            },
-          },
-        }}
-      />
-      <div className='flex gap-[300px]'>
-        <div>
-          <button className='btn bg-black text-[#d2ad5f] px-5' type="submit" disabled={!stripe}>
-            Pay ${offerAmount}
-          </button>
-        </div>
-        <div>
-            <Link to='/dashboard/bought' className='btn bg-black text-[#d2ad5f]'>Cancel</Link>
-        </div>
-      </div>
-    </form>
-  );
+        });
+
+        if (confirmError) {
+            setError(confirmError.message);
+            console.log('[confirmError]', confirmError);
+        } else {
+            console.log('[PaymentIntent]', paymentIntent);
+            if (paymentIntent.status === 'succeeded') {
+                console.log('Transaction Id:', paymentIntent.id);
+                setTransactionId(paymentIntent.id);
+
+                // Update offer status to 'Bought'
+                await axios.post('http://localhost:5000/update-offer-status', {
+                    offerId: offerId,
+                    transactionId: paymentIntent.id
+                });
+            }
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <CardElement
+                options={{
+                    style: {
+                        base: {
+                            fontSize: '16px',
+                            color: '#424770',
+                            '::placeholder': {
+                                color: '#aab7c4',
+                            },
+                        },
+                        invalid: {
+                            color: '#9e2146',
+                        },
+                    },
+                }}
+            />
+           <div className='flex font gap-2'>
+           <style>
+                {`
+                @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+                .font {
+                    font-family: 'PT Serif', serif;
+                }`}
+            </style>
+           
+            <button type="submit" className="pay-button bg-black p-2 text-[#d2ad5f] rounded-lg" disabled={!stripe || !clientSecret}>
+                Pay ${offerAmount}
+            </button>
+           </div>
+           {error && <div className="card-error" role="alert">{error}</div>}
+            {transactionId && (
+                <p className="text-green-500 rounded-lg bg-black mt-2">Transaction complete with transactionId: {transactionId}</p>
+            )}
+          <div className='mt-3'>
+          <Link to="/dashboard/bought" className="back-button bg-black p-2 text-[#d2ad5f] rounded-lg">
+                Go Back
+            </Link>
+          </div>
+        </form>
+    );
 };
 
 export default PaymentForm;

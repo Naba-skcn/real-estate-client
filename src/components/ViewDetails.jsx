@@ -59,6 +59,7 @@ const ViewDetails = () => {
                 verificationStatus: property.verification_status,
                 agentName: property.agent_name,
                 agentImage: property.agent_image,
+                agentEmail: property.agent_email,
                 userEmail: user.email,
                 userName: user.displayName,
             });
@@ -85,6 +86,7 @@ const ViewDetails = () => {
                 userId: user.id,
                 review: newReview,
                 agentName: property.agent_name,
+                agentEmail: property.agent_email,
                 reviewTime: currentTime,
                 userName: user.displayName, 
                 userImage: user.photoURL,
@@ -132,6 +134,7 @@ const ViewDetails = () => {
                         <p><span className='font-semibold text-black'>Description:</span> {property.description}</p>
                         <p><span className='font-semibold text-black'>Price Range:</span> {property.price_range}</p>
                         <p><span className='font-semibold text-black'>Agent Name:</span> {property.agent_name}</p>
+                        <p><span className='font-semibold text-black'>Agent Email:</span> {property.agent_email}</p>
                     </div>
                     <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg mb-8">
                         <img src={property.property_image} alt={property.title} className="w-full h-[500px] object-cover" />

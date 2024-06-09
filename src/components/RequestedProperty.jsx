@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css'; // Ensure you've installed and configured Tailwind CSS
+import UseAuth from './routes/UseAuth';
 
 const RequestedProperty = () => {
     const [offers, setOffers] = useState([]);
+    const {user} = UseAuth();
 
     useEffect(() => {
         // Fetch the offers from the server
         const fetchOffers = async () => {
             try {
-                const response = await fetch('http://localhost:5000/offers'); 
+                const response = await fetch(`http://localhost:5000/offers/${user.email}`); 
                 const data = await response.json();
                 setOffers(data);
             } catch (error) {
@@ -16,7 +18,7 @@ const RequestedProperty = () => {
             }
         };
 
-        fetchOffers();
+        fetchOffers(user);
     }, []);
 
     const handleAccept = async (offerId, propertyId) => {

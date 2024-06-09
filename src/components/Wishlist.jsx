@@ -70,6 +70,7 @@ const Wishlist = () => {
                                 <img src={property.agentImage} alt={property.agentName} className="w-10 h-10 rounded-full mr-2" />
                                 <p className="text-gray-800">{property.agentName}</p>
                             </div>
+                            <p className="text-gray-600 mb-2">{property.agentEmail}</p>
                             <p className="text-green-500 mb-2">{property.verificationStatus}</p>
                             <p className="text-gray-800 font-bold mb-4">{property.priceRange}</p>
                             <div className="flex justify-between">

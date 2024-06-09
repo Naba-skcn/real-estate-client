@@ -9,7 +9,7 @@ const MakeOffer = () => {
     const navigate = useNavigate();
     const { user } = UseAuth();
     const { property } = state;
-    const { propertyTitle, propertyLocation, propertyImage, agentName, priceRange, _id: propertyId, userName: buyerName } = property;
+    const { propertyTitle, propertyLocation, propertyImage, agentName, agentEmail, priceRange, _id: propertyId, userName: buyerName } = property;
 const extractPrices = priceStr => priceStr.match(/\$\d+(?:,\d+)*\s*-\s*\$\d+(?:,\d+)*/)?.[0].split(' - ').map(price => parseInt(price.replace(/\$|,/g, '')));
     const [offerAmount, setOfferAmount] = useState('');
     const [buyingDate, setBuyingDate] = useState('');
@@ -35,6 +35,7 @@ const extractPrices = priceStr => priceStr.match(/\$\d+(?:,\d+)*\s*-\s*\$\d+(?:,
             propertyLocation,
             propertyImage,
             agentName,
+            agentEmail,
             offerAmount: offerAmountNumber,
             buyerEmail: user.email,
             buyerName,
@@ -83,6 +84,10 @@ const extractPrices = priceStr => priceStr.match(/\$\d+(?:,\d+)*\s*-\s*\$\d+(?:,
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Agent Name</label>
                     <input type="text" value={agentName} readOnly className="w-full px-3 py-2 border rounded" />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Agent Email</label>
+                    <input type="text" value={agentEmail} readOnly className="w-full px-3 py-2 border rounded" />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">Offered Amount</label>

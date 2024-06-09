@@ -33,6 +33,7 @@ import PropertyBought from './components/PropertyBought.jsx';
 import MyReviews from './components/MyReviews.jsx';
 import RequestedProperty from './components/RequestedProperty.jsx';
 import PaymentPage from './components/PaymentPage.jsx';
+import SoldProperties from './components/SoldProperties.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -125,6 +126,11 @@ const router = createBrowserRouter([
         index: true,
         path: "/dashboard/payment/:id",
         element:<PrivateRoute><PaymentPage></PaymentPage></PrivateRoute>
+      },
+      {
+        index: true,
+        path: "/dashboard/sold-properties",
+        element:<PrivateRoute><SoldProperties></SoldProperties></PrivateRoute>
       },
     ]
    },
