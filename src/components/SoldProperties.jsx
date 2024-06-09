@@ -33,52 +33,51 @@ const SoldProperties = () => {
   return (
     <div className="container mx-auto font mt-10">
         <style>
-                {`
-                @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+            {`
+            @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-                .font {
-                    font-family: 'PT Serif', serif;
-                }`}
-            </style>
+            .font {
+                font-family: 'PT Serif', serif;
+            }`}
+        </style>
       <h2 className="text-2xl font-bold mb-5">Sold Properties</h2>
       <div className='bg-black text-[#d2ad5f]'>Total Property Sold Amount: ${totalSoldAmount}</div>
-      <table className="min-w-full mt-2 divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Property Title
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Property Location
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Buyer Email
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Buyer Name
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Sold Price
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {sold.map(property => (
-            <tr key={property._id}>
-              <td className="px-6 py-4 whitespace-nowrap">{property.propertyTitle}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{property.propertyLocation}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{property.buyerEmail}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{property.buyerName}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{property.offerAmount}</td>
+      <div className="overflow-x-auto">
+        <table className="min-w-full mt-2 divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Property Title
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Property Location
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Buyer Email
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Buyer Name
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Sold Price
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {sold.map(property => (
+              <tr key={property._id}>
+                <td className="px-6 py-4 whitespace-nowrap">{property.propertyTitle}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{property.propertyLocation}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{property.buyerEmail}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{property.buyerName}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{property.offerAmount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
 
 export default SoldProperties;
-
-  
-

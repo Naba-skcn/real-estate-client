@@ -45,40 +45,60 @@ const AdvertiseProperty = () => {
 
                 .font {
                     font-family: 'PT Serif', serif;
-                }`}
+                }
+
+                .responsive-table {
+                    overflow-x: auto;
+                    width: 100%;
+                }
+
+                @media screen and (max-width: 640px) {
+                    .responsive-table {
+                        overflow-x: auto;
+                    }
+                }
+
+                @media screen and (max-width: 480px) {
+                    .container {
+                        width: 90%;
+                    }
+                }
+                `}
             </style>
             <h2 className='text-2xl font-bold mb-4'>Verified Properties</h2>
-            <table className='min-w-full bg-white border border-gray-300'>
-                <thead>
-                    <tr className='bg-gray-200'>
-                        <th className='py-2 px-4 border-b'>Property Image</th>
-                        <th className='py-2 px-4 border-b'>Property Title</th>
-                        <th className='py-2 px-4 border-b'>Price Range</th>
-                        <th className='py-2 px-4 border-b'>Agent Name</th>
-                        <th className='py-2 px-4 border-b'>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {properties.map((property) => (
-                        <tr key={property._id} className='hover:bg-gray-100'>
-                            <td className='py-2 px-4 border-b'>
-                                <img src={property.property_image} alt={property.property_title} width="100" />
-                            </td>
-                            <td className='py-2 px-4 border-b'>{property.property_title}</td>
-                            <td className='py-2 px-4 border-b'>{property.price_range}</td>
-                            <td className='py-2 px-4 border-b'>{property.agent_name}</td>
-                            <td className='py-2 px-4 border-b'>
-                                <button
-                                    onClick={() => handleAdvertise(property)}
-                                    className='bg-green-500 text-white py-1 px-3 rounded hover:bg-green-700 transition duration-300'
-                                >
-                                    Advertise
-                                </button>
-                            </td>
+            <div className='responsive-table'>
+                <table className='min-w-full bg-white border border-gray-300'>
+                    <thead>
+                        <tr className='bg-gray-200'>
+                            <th className='py-2 px-4 border-b'>Property Image</th>
+                            <th className='py-2 px-4 border-b'>Property Title</th>
+                            <th className='py-2 px-4 border-b'>Price Range</th>
+                            <th className='py-2 px-4 border-b'>Agent Name</th>
+                            <th className='py-2 px-4 border-b'>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {properties.map((property) => (
+                            <tr key={property._id} className='hover:bg-gray-100'>
+                                <td className='py-2 px-4 border-b'>
+                                    <img src={property.property_image} alt={property.property_title} width="100" />
+                                </td>
+                                <td className='py-2 px-4 border-b'>{property.property_title}</td>
+                                <td className='py-2 px-4 border-b'>{property.price_range}</td>
+                                <td className='py-2 px-4 border-b'>{property.agent_name}</td>
+                                <td className='py-2 px-4 border-b'>
+                                    <button
+                                        onClick={() => handleAdvertise(property)}
+                                        className='bg-green-800 text-white py-1 px-3 rounded hover:bg-green-700 transition duration-300'
+                                    >
+                                        Advertise
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
