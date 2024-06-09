@@ -38,7 +38,15 @@ const AdvertiseProperty = () => {
     if (error) return <div>{error}</div>;
 
     return (
-        <div className='container mx-auto md:w-3/4 mt-8'>
+        <div className='container font mx-auto md:w-3/4 mt-8'>
+            <style>
+                {`
+                @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+                .font {
+                    font-family: 'PT Serif', serif;
+                }`}
+            </style>
             <h2 className='text-2xl font-bold mb-4'>Verified Properties</h2>
             <table className='min-w-full bg-white border border-gray-300'>
                 <thead>
