@@ -14,7 +14,11 @@ const ManageUsers = () => {
   const { data: users = [], refetch, isLoading, error } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const { data } = await axios.get('http://localhost:5000/users');
+      const { data } = await axios.get('http://localhost:5000/users',{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('access-token')}`
+        }
+      });
       return data;
     },
   });
