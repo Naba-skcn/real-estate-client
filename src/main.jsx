@@ -36,6 +36,7 @@ import PaymentPage from './components/PaymentPage.jsx';
 import SoldProperties from './components/SoldProperties.jsx';
 import ManageReviews from './components/ManageReviews.jsx';
 import AdvertiseProperty from './components/AdvertiseProperty.jsx';
+import Welcome from './components/Welcome.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -143,6 +144,11 @@ const router = createBrowserRouter([
         index: true,
         path: "/dashboard/advertise-properties",
         element:<PrivateRoute><AdvertiseProperty></AdvertiseProperty></PrivateRoute>
+      },
+      {
+        index: true,
+        path: "/dashboard",
+        element:<PrivateRoute><Welcome></Welcome></PrivateRoute>
       },
     ]
    },

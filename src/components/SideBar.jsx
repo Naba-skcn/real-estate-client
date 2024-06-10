@@ -11,6 +11,7 @@ import MenuItem from './MenuItem'
 import AgentMenu from './AgentMenu'
 import AdminMenu from './AdminMenu'
 import UserMenu from './UserMenu'
+import { SiWelcometothejungle } from "react-icons/si";
 
 const Sidebar = () => {
   const { logOut } = UseAuth()
@@ -73,7 +74,7 @@ const Sidebar = () => {
           {/* Nav Items */}
           <div className='flex flex-col  justify-between flex-1 mt-6'>
             {/* Conditional toggle button here.. */}
-            
+            <MenuItem label='Welcome' address='/dashboard' icon={SiWelcometothejungle}></MenuItem>
             {/*  Menu Items */}
             <nav>
             {role == 'User' && <UserMenu></UserMenu>}
@@ -86,6 +87,7 @@ const Sidebar = () => {
           <hr />
           {/* Profile Menu */}
           <MenuItem label='Profile' address='/dashboard/profile' icon={FcSettings}></MenuItem>
+          <Link to='/'>
           <button
             onClick={logOut}
             className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
@@ -94,6 +96,7 @@ const Sidebar = () => {
 
             <span className='mx-4 text-[#d2ad5f] font-medium'>Logout</span>
           </button>
+          </Link>
         </div>
       </div>
     </>
