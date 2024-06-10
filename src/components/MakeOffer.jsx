@@ -44,7 +44,7 @@ const extractPrices = priceStr => priceStr.match(/\$\d+(?:,\d+)*\s*-\s*\$\d+(?:,
         };
     
         try {
-            const response = await axios.post('http://localhost:5000/offers', offer);
+            const response = await axios.post('https://real-estate-server-a12.vercel.app/offers', offer);
             if (response.status === 201) {
                 Swal.fire('Success', 'Your offer has been submitted.', 'success');
                 navigate('/dashboard/bought');

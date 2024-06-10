@@ -20,7 +20,7 @@ const ViewDetails = () => {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/property/${id}`);
+                const response = await axios.get(`https://real-estate-server-a12.vercel.app/property/${id}`);
                 setProperty(response.data);
             } catch (error) {
                 console.error('Error fetching property:', error);
@@ -31,7 +31,7 @@ const ViewDetails = () => {
 
         const fetchReviews = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/property/${id}/reviews`);
+                const response = await axios.get(`https://real-estate-server-a12.vercel.app/property/${id}/reviews`);
                 setReviews(response.data);
             } catch (error) {
                 console.error('Error fetching reviews:', error);
@@ -48,7 +48,7 @@ const ViewDetails = () => {
             return;
         }
         try {
-            const response = await axios.post(`http://localhost:5000/list`, {
+            const response = await axios.post(`https://real-estate-server-a12.vercel.app/list`, {
                 userId: user.id,
                 propertyId: id,
                 propertyTitle: property.property_title,
@@ -82,7 +82,7 @@ const ViewDetails = () => {
         }
         try {
             const currentTime = new Date().toLocaleString();
-            const response = await axios.post(`http://localhost:5000/property/${id}/reviews`, {
+            const response = await axios.post(`https://real-estate-server-a12.vercel.app/property/${id}/reviews`, {
                 userId: user.id,
                 review: newReview,
                 agentName: property.agent_name,

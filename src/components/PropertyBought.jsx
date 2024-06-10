@@ -11,7 +11,7 @@ const PropertyBought = () => {
     useEffect(() => {
         const fetchOffers = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/buyer/offers/${user.email}`);
+                const response = await axios.get(`https://real-estate-server-a12.vercel.app/buyer/offers/${user.email}`);
                 setOffers(response.data);
             } catch (error) {
                 console.error('Failed to fetch offers', error);

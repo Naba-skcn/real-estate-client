@@ -8,7 +8,7 @@ const AllProperties = () => {
     const { data: properties, error, isLoading } = useQuery({
         queryKey: ['properties'],
         queryFn: async () => {
-            const response = await fetch('http://localhost:5000/property');
+            const response = await fetch('https://real-estate-server-a12.vercel.app/property');
             if (!response.ok) {
                 throw new Error('Failed to fetch properties');
             }

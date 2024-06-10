@@ -21,7 +21,7 @@ const MyProfile = () => {
     const { data: user, error, isLoading } = useQuery({
         queryKey: ['user', authUser?.email],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:5000/users/${authUser?.email}`);
+            const response = await fetch(`https://real-estate-server-a12.vercel.app/users/${authUser?.email}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch user data');
             }

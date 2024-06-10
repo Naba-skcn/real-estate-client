@@ -16,7 +16,7 @@ const PaymentForm = ({ offerId, offerAmount }) => {
     useEffect(() => {
         const createPaymentIntent = async () => {
             try {
-                const response = await axios.post('http://localhost:5000/create-payment-intent', { amount: offerAmount });
+                const response = await axios.post('https://real-estate-server-a12.vercel.app/create-payment-intent', { amount: offerAmount });
                 setClientSecret(response.data.clientSecret);
             } catch (error) {
                 console.error('Failed to create payment intent', error);
@@ -73,7 +73,7 @@ const PaymentForm = ({ offerId, offerAmount }) => {
                 setTransactionId(paymentIntent.id);
 
                 // Update offer status to 'Bought'
-                await axios.post('http://localhost:5000/update-offer-status', {
+                await axios.post('https://real-estate-server-a12.vercel.app/update-offer-status', {
                     offerId: offerId,
                     transactionId: paymentIntent.id
                 });

@@ -16,7 +16,7 @@ const UserDataRow = ({ user, refetch }) => {
   const { mutateAsync } = useMutation({
     mutationFn: async role => {
       const { data } = await axios.patch(
-        `http://localhost:5000/users/update/${user?.email}`,
+        `https://real-estate-server-a12.vercel.app/users/update/${user?.email}`,
         role
       );
       return data;
@@ -50,7 +50,7 @@ const UserDataRow = ({ user, refetch }) => {
 
   const deleteUser = async () => {
     try {
-      await axios.delete(`http://localhost:5000/user/${user.email}`);
+      await axios.delete(`https://real-estate-server-a12.vercel.app/user/${user.email}`);
       toast.success('User deleted successfully!');
       refetch();
     } catch (error) {
@@ -61,7 +61,7 @@ const UserDataRow = ({ user, refetch }) => {
 
   const markAsFraud = async () => {
     try {
-      await axios.patch(`http://localhost:5000/users/update/${user.email}`, {
+      await axios.patch(`https://real-estate-server-a12.vercel.app/users/update/${user.email}`, {
         role: 'Fraud',
       });
       refetch()

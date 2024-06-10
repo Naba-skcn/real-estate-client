@@ -15,7 +15,7 @@ const AdvertiseProperty = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get('http://localhost:5000/property/verified');
+            const response = await axios.get('https://real-estate-server-a12.vercel.app/property/verified');
             setProperties(response.data);
         } catch (error) {
             console.error('Error fetching verified properties:', error);
@@ -27,7 +27,7 @@ const AdvertiseProperty = () => {
 
     const handleAdvertise = async (property) => {
         try {
-            await axios.post('http://localhost:5000/advertise', property);
+            await axios.post('https://real-estate-server-a12.vercel.app/advertise', property);
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',

@@ -39,7 +39,7 @@ const AddProperty = () => {
                 agent_image: agentImage
             };
 
-            const res = await fetch('http://localhost:5000/property', {
+            const res = await fetch('https://real-estate-server-a12.vercel.app/property', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

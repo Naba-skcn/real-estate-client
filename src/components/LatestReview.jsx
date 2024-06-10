@@ -9,7 +9,7 @@ const LatestReview = () => {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/reviews/latest`);
+                const response = await axios.get(`https://real-estate-server-a12.vercel.app/reviews/latest`);
                 setReviews(response.data);
             } catch (error) {
                 console.error('Error fetching reviews:', error);
@@ -28,7 +28,7 @@ const LatestReview = () => {
         }));
 
         // Here you would typically send the new rating to the server
-        // axios.post(`http://localhost:5000/reviews/${reviewId}/rating`, { rating })
+        // axios.post(`https://real-estate-server-a12.vercel.app/reviews/${reviewId}/rating`, { rating })
         //     .then(response => {
         //         // Handle success
         //     })

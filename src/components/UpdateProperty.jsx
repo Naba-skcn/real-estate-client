@@ -21,7 +21,7 @@ const UpdateProperty = () => {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/property/${id}`);
+                const response = await axios.get(`https://real-estate-server-a12.vercel.app/property/${id}`);
                 setProperty(response.data);
             } catch (error) {
                 console.error('Error fetching property:', error);
@@ -47,7 +47,7 @@ const UpdateProperty = () => {
 
             const { _id, ...updateData } = property;
             
-            await axios.patch(`http://localhost:5000/property/${id}`, updateData);
+            await axios.patch(`https://real-estate-server-a12.vercel.app/property/${id}`, updateData);
             toast.success('Property successfully updated');
             navigate(`/dashboard/update-property/${id}`);
         } catch (error) {

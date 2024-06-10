@@ -10,7 +10,7 @@ const SoldProperties = () => {
   useEffect(() => {
     const fetchSoldProperties = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/sold-properties/${user.email}`);
+        const response = await axios.get(`https://real-estate-server-a12.vercel.app/sold-properties/${user.email}`);
         setSold(response.data);
       } catch (error) {
         console.error('Error fetching sold properties:', error);
@@ -19,7 +19,7 @@ const SoldProperties = () => {
 
     const fetchTotalSoldAmount = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/total-sold-amount/${user.email}`);
+        const response = await axios.get(`https://real-estate-server-a12.vercel.app/total-sold-amount/${user.email}`);
         setTotalSoldAmount(response.data.totalSoldAmount);
       } catch (error) {
         console.error('Error fetching total sold amount:', error);

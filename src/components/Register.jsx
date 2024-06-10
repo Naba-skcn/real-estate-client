@@ -48,7 +48,7 @@ const Register = () => {
                 email,
                 photoURL,
             };
-            const response = await fetch('http://localhost:5000/user', {
+            const response = await fetch('https://real-estate-server-a12.vercel.app/user', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

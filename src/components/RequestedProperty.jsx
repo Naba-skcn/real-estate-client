@@ -10,7 +10,7 @@ const RequestedProperty = () => {
         // Fetch the offers from the server
         const fetchOffers = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/offers/${user.email}`); 
+                const response = await fetch(`https://real-estate-server-a12.vercel.app/offers/${user.email}`); 
                 const data = await response.json();
                 setOffers(data);
             } catch (error) {
@@ -24,7 +24,7 @@ const RequestedProperty = () => {
     const handleAccept = async (offerId, propertyId) => {
         try {
             // Update the offer status to "Accepted"
-            await fetch(`http://localhost:5000/offers/${offerId}`, {
+            await fetch(`https://real-estate-server-a12.vercel.app/offers/${offerId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ const RequestedProperty = () => {
             });
 
             // Reject other offers for the same property
-            await fetch(`http://localhost:5000/offers/rejectOthers`, {
+            await fetch(`https://real-estate-server-a12.vercel.app/offers/rejectOthers`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const RequestedProperty = () => {
     const handleReject = async (offerId) => {
         try {
             // Update the offer status to "Rejected"
-            await fetch(`http://localhost:5000/offers/${offerId}`, {
+            await fetch(`https://real-estate-server-a12.vercel.app/offers/${offerId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

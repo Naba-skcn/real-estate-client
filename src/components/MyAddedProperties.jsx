@@ -13,7 +13,7 @@ const MyAddedProperties = () => {
         const fetchProperties = async () => {
             try {
                 if (user) {
-                    const response = await axios.get(`http://localhost:5000/property/agent/${user.email}`);
+                    const response = await axios.get(`https://real-estate-server-a12.vercel.app/property/agent/${user.email}`);
                     setProperties(response.data);
                 }
             } catch (error) {
@@ -26,7 +26,7 @@ const MyAddedProperties = () => {
 
     const handleDelete = async (propertyId) => {
         try {
-            await axios.delete(`http://localhost:5000/property/${propertyId}`);
+            await axios.delete(`https://real-estate-server-a12.vercel.app/property/${propertyId}`);
             setProperties(properties.filter(property => property._id !== propertyId));
             toast.success('Property successfully deleted');
         } catch (error) {

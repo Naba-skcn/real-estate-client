@@ -10,7 +10,7 @@ const useRole = () => {
     queryKey: ['role', user?.email],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
-      const { data } = await axios(`http://localhost:5000/user/${user?.email}`)
+      const { data } = await axios(`https://real-estate-server-a12.vercel.app/user/${user?.email}`)
       return data.role
     },
   })

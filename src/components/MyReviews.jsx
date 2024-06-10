@@ -11,7 +11,7 @@ const MyReviews = () => {
         const fetchReviews = async () => {
             try {
                 if (user) {
-                    const response = await axios.get(`http://localhost:5000/reviews/user/${user.email}`);
+                    const response = await axios.get(`https://real-estate-server-a12.vercel.app/reviews/user/${user.email}`);
                     setReviews(response.data);
                 }
             } catch (error) {
@@ -24,7 +24,7 @@ const MyReviews = () => {
 
     const handleDelete = async (reviewId) => {
         try {
-            await axios.delete(`http://localhost:5000/reviews/${reviewId}`);
+            await axios.delete(`https://real-estate-server-a12.vercel.app/reviews/${reviewId}`);
             setReviews(reviews.filter(review => review._id !== reviewId));
             toast.success('Review successfully deleted');
         } catch (error) {

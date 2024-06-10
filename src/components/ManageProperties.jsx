@@ -10,7 +10,7 @@ const ManageProperties = () => {
 
     const fetchProperties = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/property');
+            const response = await axios.get('https://real-estate-server-a12.vercel.app/property');
             setProperties(response.data);
         } catch (error) {
             console.error('Error fetching properties:', error);
@@ -19,7 +19,7 @@ const ManageProperties = () => {
 
     const handleVerify = async (id) => {
         try {
-            await axios.patch(`http://localhost:5000/property/verify/${id}`);
+            await axios.patch(`https://real-estate-server-a12.vercel.app/property/verify/${id}`);
             fetchProperties();
         } catch (error) {
             console.error('Error verifying property:', error);
@@ -28,7 +28,7 @@ const ManageProperties = () => {
 
     const handleReject = async (id) => {
         try {
-            await axios.patch(`http://localhost:5000/property/reject/${id}`);
+            await axios.patch(`https://real-estate-server-a12.vercel.app/property/reject/${id}`);
             fetchProperties();
         } catch (error) {
             console.error('Error rejecting property:', error);

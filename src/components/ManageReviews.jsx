@@ -10,7 +10,7 @@ const ManageReviews = () => {
 
     const fetchReviews = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/reviews/latest');
+            const response = await axios.get('https://real-estate-server-a12.vercel.app/reviews/latest');
             setReviews(response.data);
         } catch (error) {
             console.error('Error fetching reviews:', error);
@@ -19,7 +19,7 @@ const ManageReviews = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/reviews/${id}`);
+            await axios.delete(`https://real-estate-server-a12.vercel.app/reviews/${id}`);
             setReviews(reviews.filter(review => review._id !== id));
         } catch (error) {
             console.error('Error deleting review:', error);

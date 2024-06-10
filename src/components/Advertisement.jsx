@@ -5,7 +5,7 @@ const Advertisement = () => {
     const { data: properties, error, isLoading } = useQuery({
         queryKey: ['properties'], 
         queryFn: async () => {
-            const response = await fetch('http://localhost:5000/property/advertise');
+            const response = await fetch('https://real-estate-server-a12.vercel.app/property/advertise');
             if (!response.ok) {
                 throw new Error('Failed to fetch properties');
             }

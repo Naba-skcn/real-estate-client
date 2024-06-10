@@ -14,7 +14,7 @@ const Wishlist = () => {
             if (user && user.email) {
                 console.log(`Fetching wishlist for user: ${user.email}`);
                 try {
-                    const response = await axios.get(`http://localhost:5000/list/${user.email}`);
+                    const response = await axios.get(`https://real-estate-server-a12.vercel.app/list/${user.email}`);
                     console.log('Response:', response.data);
                     setWishlist(response.data);
                 } catch (error) {
@@ -29,7 +29,7 @@ const Wishlist = () => {
 
     const handleRemoveFromWishlist = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/list/${id}`);
+            const response = await axios.delete(`https://real-estate-server-a12.vercel.app/list/${id}`);
             if (response.status === 200) {
                 setWishlist(wishlist.filter(item => item._id !== id));
                 Swal.fire('Success', 'Removed from wishlist', 'success');
